@@ -197,6 +197,9 @@ public class LinkedList {
 		}
 		if (node.equals(first)){
 			first = first.next;
+			if (first == null){
+				last = null;
+			}
 		}
 		ListIterator itr = iterator();
 		for (int i = 0; i < size - 2; i++){
@@ -204,6 +207,9 @@ public class LinkedList {
 				itr.current.next = node.next;
 			}
 			itr.next();
+		}
+		if (last == null){
+			first = null;
 		}
 		size--;
 	}
