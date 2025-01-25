@@ -202,8 +202,8 @@ public class LinkedList {
 			}
 		}
 		else if (node.equals(last)){
-			last = getNode(size - 1);
-			getNode(size - 1).next = null;
+			last = getNode(size - 2);
+			getNode(size - 2).next = null;
 			if (size - 1 == 1){
 				first = last;
 			}
@@ -266,5 +266,21 @@ public class LinkedList {
 			}
 		}
 		return s;
+	}
+
+	public static void main(String[] args){
+		LinkedList lst = new LinkedList();
+		MemoryBlock m1 = new MemoryBlock(0, 1);
+		MemoryBlock m2 = new MemoryBlock(0, 2);
+		MemoryBlock m3 = new MemoryBlock(0, 3);
+		MemoryBlock m4 = new MemoryBlock(0, 4);
+		lst.addFirst(m1);
+		lst.addFirst(m2);
+		lst.addFirst(m3);
+		lst.addFirst(m4);
+		System.out.println(lst.toString());
+		lst.remove(m1);
+		System.out.println(lst.toString());
+		System.out.println(lst.last.toString());
 	}
 }
