@@ -191,9 +191,9 @@ public class LinkedList {
 	 *        the node that will be removed from this list
 	 */
 	public void remove(Node node) {
-		if (node == null || size == 0){
-			throw new IllegalArgumentException(
-					"index must be between 0 and size");
+		if (node == null){
+			throw new NullPointerException(
+					" NullPointerException!");
 		}
 		if (node.equals(first)){
 			first = first.next;
