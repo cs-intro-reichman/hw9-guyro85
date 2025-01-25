@@ -15,6 +15,21 @@ public class Node {
 	public Node(MemoryBlock block) {
 		this.block = block;
 	}
+
+	public boolean equals(Node other){
+		if (block.equals(other.block)){
+			if (next == null && other.next == null){
+				return true;
+			}
+			else if (next == null || other.next == null){
+				return false;
+			}
+			else{
+				return next.block.equals(other.next.block);
+			}
+		}
+		return false;
+	}
 	
 	/**
 	 * A textual representation of this node, for debugging.

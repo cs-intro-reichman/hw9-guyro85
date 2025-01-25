@@ -58,7 +58,22 @@ public class MemorySpace {
 	 * @return the base address of the allocated block, or -1 if unable to allocate
 	 */
 	public int malloc(int length) {		
-		//// Replace the following statement with your code
+		ListIterator itr = freeList.iterator();
+		while (itr.current != null) {
+			if (itr.current.block.length > length){
+				MemoryBlock mal = new MemoryBlock(itr.current.block.baseAddress, length);
+				allocatedList.addLast(mal);
+				itr.current.block.baseAddress += length;
+				itr.current.block.length -= length;
+				return mal.baseAddress;
+			}
+			else if (itr.current.block.length == length){
+				allocatedList.addLast(itr.current.block);
+				freeList.remove(itr.current);
+				return allocatedList.getLast().block.baseAddress;
+			}
+			itr.next();
+		}
 		return -1;
 	}
 
@@ -71,7 +86,15 @@ public class MemorySpace {
 	 *            the starting address of the block to freeList
 	 */
 	public void free(int address) {
-		//// Write your code here
+		ListIterator itr = allocatedList.iterator();
+		while (itr.current != null) {
+			if (itr.current.block.baseAddress == address){
+				freeList.addLast(itr.current.block);
+				allocatedList.remove(itr.current.block);
+				return;
+			}
+			itr.next();
+		}
 	}
 	
 	/**
@@ -89,6 +112,32 @@ public class MemorySpace {
 	 */
 	public void defrag() {
 		/// TODO: Implement defrag test
-		//// Write your code here
+		ListIterator itr1 = freeList.iterator();
+		ListIterator itr2 = freeList.iterator();
+		while (itr1 != null) {
+			while (itr2 != null) {
+				if (itr1.current.block.baseAddress + itr1.current.block.length == itr2.current.block.baseAddress){
+					itr1.current.block.length += itr2.current.block.length;
+					freeList.remove(itr2.current.block);
+				}
+				itr2.next();
+			}
+			itr2 = freeList.iterator();
+			itr1.next();
+		}
+	}
+
+	public static void main(String[] args){
+		MemorySpace space = new MemorySpace(100);
+		space.malloc(5);
+		space.malloc(8);
+		space.malloc(50);
+		space.malloc(30);
+		space.malloc(10);
+		space.malloc(5);
+		space.malloc(10);
+		space.free(0);
+		space.malloc(6);
+		System.out.println(space.toString());
 	}
 }
