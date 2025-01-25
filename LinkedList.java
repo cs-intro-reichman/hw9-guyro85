@@ -256,7 +256,7 @@ public class LinkedList {
 		String s = "";
 		ListIterator itr = iterator();
 		for (int i = 0; i < size; i++){
-			s += itr.current.toString() + " ";
+			s += itr.current.block.toString() + " ";
 			if (itr.hasNext()){
 				itr.next();
 			}
@@ -266,5 +266,18 @@ public class LinkedList {
 			}
 		}
 		return s;
+	}
+
+	public static void main(String[] args){
+		LinkedList lst = new LinkedList();
+		MemoryBlock m1 = new MemoryBlock(10, 10);
+		MemoryBlock m2 = new MemoryBlock(20, 10);
+		MemoryBlock m3 = new MemoryBlock(30, 10);
+		MemoryBlock m4 = new MemoryBlock(40, 10);
+		lst.addLast(m1);
+		lst.addLast(m2);
+		lst.addLast(m3);
+		lst.addLast(m4);
+		System.out.println(lst.toString());
 	}
 }
