@@ -201,16 +201,22 @@ public class LinkedList {
 				last = null;
 			}
 		}
-		ListIterator itr = iterator();
-		for (int i = 0; i < size - 2; i++){
-			if (itr.current.next.equals(node)){
-				itr.current.next = node.next;
+		else if (node.equals(last)){
+			last = getNode(size - 1);
+			getNode(size - 1).next = null;
+			if (size - 1 == 1){
+				first = last;
 			}
-			itr.next();
 		}
-		if (last == null){
-			first = null;
-		}
+		else{
+			ListIterator itr = iterator();
+			for (int i = 0; i < size - 2; i++){
+				if (itr.current.next.equals(node)){
+					itr.current.next = node.next;
+				}
+				itr.next();
+			}
+		}		
 		size--;
 	}
 
