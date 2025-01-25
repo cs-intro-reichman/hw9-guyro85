@@ -267,17 +267,4 @@ public class LinkedList {
 		}
 		return s;
 	}
-
-	public static void main(String[] args){
-		LinkedList lst = new LinkedList();
-		MemoryBlock m1 = new MemoryBlock(10, 10);
-		MemoryBlock m2 = new MemoryBlock(20, 10);
-		MemoryBlock m3 = new MemoryBlock(30, 10);
-		MemoryBlock m4 = new MemoryBlock(40, 10);
-		lst.addLast(m1);
-		lst.addLast(m2);
-		lst.addLast(m3);
-		lst.addLast(m4);
-		System.out.println(lst.toString());
-	}
 }

@@ -86,6 +86,9 @@ public class MemorySpace {
 	 *            the starting address of the block to freeList
 	 */
 	public void free(int address) {
+		if (allocatedList.getSize() == 0) { 
+			throw new IllegalArgumentException("index must be between 0 and size");
+		}
 		ListIterator itr = allocatedList.iterator();
 		while (itr.current != null) {
 			if (itr.current.block.baseAddress == address){
@@ -111,7 +114,6 @@ public class MemorySpace {
 	 * In this implementation Malloc does not call defrag.
 	 */
 	public void defrag() {
-		/// TODO: Implement defrag test
 		ListIterator itr1 = freeList.iterator();
 		ListIterator itr2 = freeList.iterator();
 		while (itr1.current != null) {
@@ -119,18 +121,12 @@ public class MemorySpace {
 				if (itr1.current.block.baseAddress + itr1.current.block.length == itr2.current.block.baseAddress){
 					itr1.current.block.length += itr2.current.block.length;
 					freeList.remove(itr2.current.block);
+					defrag();
 				}
 				itr2.next();
 			}
 			itr2 = freeList.iterator();
 			itr1.next();
 		}
-	}
-	
-	public static void main(String[] args){
-		MemorySpace space = new MemorySpace(100);
-		System.out.println(space.malloc(19));
-		System.out.println(space.malloc(10));
-		System.out.println(space.toString());
 	}
 }
