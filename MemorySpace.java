@@ -61,11 +61,11 @@ public class MemorySpace {
 		ListIterator itr = freeList.iterator();
 		while (itr.current != null) {
 			if (itr.current.block.length > length){
-				MemoryBlock mal = new MemoryBlock(itr.current.block.baseAddress, length);
-				allocatedList.addLast(mal);
+				MemoryBlock insert = new MemoryBlock(itr.current.block.baseAddress, length);
+				allocatedList.addLast(insert);
 				itr.current.block.baseAddress += length;
 				itr.current.block.length -= length;
-				return mal.baseAddress;
+				return insert.baseAddress;
 			}
 			else if (itr.current.block.length == length){
 				allocatedList.addLast(itr.current.block);
@@ -125,5 +125,12 @@ public class MemorySpace {
 			itr2 = freeList.iterator();
 			itr1.next();
 		}
+	}
+	
+	public static void main(String[] args){
+		MemorySpace space = new MemorySpace(100);
+		System.out.println(space.malloc(19));
+		System.out.println(space.malloc(10));
+		System.out.println(space.toString());
 	}
 }
