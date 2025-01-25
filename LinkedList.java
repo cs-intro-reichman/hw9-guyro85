@@ -50,7 +50,7 @@ public class LinkedList {
 	 * @return the node at the given index
 	 */		
 	public Node getNode(int index) {
-		if (index < 0 || index > size) {
+		if (index < 0 || index > size || size == 0) {
 			throw new IllegalArgumentException(
 					"index must be between 0 and size");
 		}
@@ -158,7 +158,12 @@ public class LinkedList {
 	 */
 	public MemoryBlock getBlock(int index) {
 		Node temp = getNode(index);
-		return temp.block;
+		if (temp != null){
+			return temp.block;
+		}
+		else{
+			return null;
+		}
 	}	
 
 	/**
@@ -186,8 +191,9 @@ public class LinkedList {
 	 *        the node that will be removed from this list
 	 */
 	public void remove(Node node) {
-		if (node == null){
-			return;
+		if (node == null || size == 0){
+			throw new IllegalArgumentException(
+					"index must be between 0 and size");
 		}
 		if (node.equals(first)){
 			first = first.next;

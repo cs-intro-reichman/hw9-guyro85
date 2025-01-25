@@ -114,8 +114,8 @@ public class MemorySpace {
 		/// TODO: Implement defrag test
 		ListIterator itr1 = freeList.iterator();
 		ListIterator itr2 = freeList.iterator();
-		while (itr1 != null) {
-			while (itr2 != null) {
+		while (itr1.current != null) {
+			while (itr2.current != null) {
 				if (itr1.current.block.baseAddress + itr1.current.block.length == itr2.current.block.baseAddress){
 					itr1.current.block.length += itr2.current.block.length;
 					freeList.remove(itr2.current.block);
@@ -125,19 +125,5 @@ public class MemorySpace {
 			itr2 = freeList.iterator();
 			itr1.next();
 		}
-	}
-
-	public static void main(String[] args){
-		MemorySpace space = new MemorySpace(100);
-		space.malloc(5);
-		space.malloc(8);
-		space.malloc(50);
-		space.malloc(30);
-		space.malloc(10);
-		space.malloc(5);
-		space.malloc(10);
-		space.free(0);
-		space.malloc(6);
-		System.out.println(space.toString());
 	}
 }

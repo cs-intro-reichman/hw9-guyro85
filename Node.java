@@ -17,6 +17,9 @@ public class Node {
 	}
 
 	public boolean equals(Node other){
+		if (block == null){
+			return false;
+		}
 		if (block.equals(other.block)){
 			if (next == null && other.next == null){
 				return true;
